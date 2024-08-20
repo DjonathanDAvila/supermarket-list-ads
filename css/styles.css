@@ -1,0 +1,115 @@
+body {
+  margin: 0; /* Remove margens padrão */
+  height: 100vh; /* Define a altura como 100% da viewport */
+  display: flex; /* Usado para centralizar o conteúdo */
+  /*justify-content: center; /* Centraliza horizontalmente */
+  /*align-items: center; /* Centraliza verticalmente */
+  background-color: #100c35; /* Altere para a cor desejada */
+  color: white; /* Cor do texto */
+  padding: 20px 50px;
+  flex-direction: column;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  background-color: #261c4e;
+  margin: 0 auto;
+  height: 12%;
+  width: 100%;
+  border-radius: 40px 0px;
+  justify-content: center;
+}
+
+h1 {
+  margin-top: 35px;
+  margin-left: 20px;
+  font-family: "Arial", Helvetica, sans-serif;
+}
+
+h5 {
+  margin-bottom: 40px;
+  margin-left: 20px;
+  font-family: "Arial", Helvetica, sans-serif;
+}
+
+main {
+  width: 95%;
+  margin-top: 1%;
+  display: flex;
+  flex-direction: row;
+}
+
+main{
+    gap: 1rem;
+    width: 100%;
+}
+
+aside {
+  order: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 25%;
+  max-width: 25%;
+  height: 100%;
+  gap: 1rem;
+}
+
+.side-menu {
+  display: flex;
+  flex-direction: column;
+  background-color: #261c4e;
+  border-radius: 2rem;
+  height: 100vh;
+  max-width: 100%;
+}
+
+.main-list{
+    border: solid #ffffff;    
+    width: 100%;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-height: 100%;
+}
+
+input {
+  flex: 1;
+  padding: 1rem;
+  border: 2px solid #ccc;
+  border-radius: 15px;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease;
+}
+
+input:focus {
+  outline: none;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.4);
+}
+
+.btn-add {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-left: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%; /* Adapta à altura do input */
+}
+
+.icon-add {
+  width: 4rem; /* Ajuste relativo ao tamanho da tela */
+  height: 4rem;
+}
+
+button:hover {
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
+    rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
