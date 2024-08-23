@@ -1,18 +1,49 @@
+document.addEventListener("DOMContentLoaded", function () {
+  renderCategories();
+
+  btnNewCategorie.addEventListener("click", onClickNewCategorie);
+});
+
+// Categories...
 const categories = ["Frutas", "Verduras", "Carnes", "Café", "Doces"];
 
-// Função para renderizar as categorias na tabela
-function renderCategories() {
-    const tableBody = document.querySelector("#category-table tbody");
-    tableBody.innerHTML = ""; // Limpa o conteúdo existente
+// Referência aos elementos DOM
+const categoryList = document.getElementById("category-list");
+const tableBody = document.getElementById("table-body"); 
+const btnNewCategorie = document.getElementById("btnNewCategorie");
+const ipCategorie = document.getElementById("ipCategorie");
 
-    categories.forEach(category => {
-        const row = document.createElement("tr");
-        const cell = document.createElement("td");
-        cell.textContent = category;
-        row.appendChild(cell);
-        tableBody.appendChild(row);
-    });
+function renderCategories() {
+  categoryList.innerHTML = ""; 
+  if (tableBody) tableBody.innerHTML = ""; // Limpa o conteúdo da tabela, se existir
+
+  categories.forEach(function (category) {
+    const li = document.createElement("li");
+    li.textContent = category;
+    categoryList.appendChild(li);
+
+    if (tableBody) {
+      const tr = document.createElement("tr");
+      const td = document.createElement("td");
+      td.textContent = category;
+      tr.appendChild(td);
+      tableBody.appendChild(tr);
+    }
+  });
 }
 
-// Chama a função para renderizar as categorias ao carregar a página
-window.onload = renderCategories;
+function onClickNewCategorie() {
+  addNewCategorie();
+}
+
+function addNewCategorie() {
+  const newCategorie = ipCategorie.value.trim(); 
+
+  if (newCategorie !== "") {
+    categories.push(newCategorie); 
+    renderCategories(); 
+    ipCategorie.value = ""; 
+  } else {
+    alert("Por favor, insira um nome para a nova categoria.");
+  }
+}
