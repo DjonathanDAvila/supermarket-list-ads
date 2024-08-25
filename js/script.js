@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   renderCategories();
 
   btnNewCategorie.addEventListener("click", onClickNewCategorie);
+  btnNewItem.addEventListener('click', onClickNewItemList)
   categoryList.addEventListener("click", onClickCategorie);
 });
 
@@ -29,13 +30,17 @@ const categories = [
   },
 ];
 
+let selectedCategory = "";
+
 // Referência aos elementos DOM
 const categoryList = document.getElementById("category-list");
 const itemList = document.getElementById("item-list");
+const nameList = document.getElementById("name-list");
 const tableBody = document.getElementById("table-body");
 const btnNewCategorie = document.getElementById("btnNewCategorie");
+const btnNewItem = document.getElementById("btnNewItem");
 const ipCategorie = document.getElementById("ipCategorie");
-// const itemList = document.getElementById("table-body");
+const ipItemList = document.getElementById("ipItemList");
 
 function renderCategories() {
   categoryList.innerHTML = "";
@@ -61,9 +66,14 @@ function onClickNewCategorie() {
   addNewCategorie();
 }
 
+function onClickNewItemList() {
+  addNewItem(selectedCategory, ipItemList.value.trim());
+}
+
 function onClickCategorie() {
   const clickedCategory = event.target.textContent;
   if (clickedCategory) {
+    selectedCategory = clickedCategory;
     // alert(`Categoria clicada: ${clickedCategory}`);
     renderItemsList(clickedCategory); // Renderiza os itens da categoria clicada
   }
@@ -90,6 +100,7 @@ function addNewCategorie() {
 function renderItemsList(categoryName) {
   const category = categories.find((cat) => cat.name === categoryName); // Encontra a categoria correta
   if (!category) return;
+  nameList.textContent = category.name;
 
   itemList.innerHTML = ""; // Limpa a lista de itens
 
@@ -100,7 +111,8 @@ function renderItemsList(categoryName) {
     // Cria a div do ícone
     const iconDiv = document.createElement("div");
     iconDiv.className = "icon";
-    iconDiv.textContent = item.charAt(0); // Primeiro caractere do nome do item
+    const char = item.charAt(0);
+    iconDiv.textContent = char.toUpperCase(); // Primeiro caractere do nome do item
 
     // Cria o span para o nome do item
     const span = document.createElement("span");
@@ -134,4 +146,21 @@ function renderItemsList(categoryName) {
 
     itemList.appendChild(li);
   });
+}
+
+function addNewItem(categoryName, itemName) {
+  const category = categories.find((cat) => cat.name === categoryName);
+
+  if (!category) {
+    alert(`Categoria ${categoryName} não encontrada.`);
+    return;
+  }
+
+  const newItem = itemName.trim();
+  if (newItem) {
+    category.items.push(newItem);
+    renderItemsList(categoryName);
+  } else {
+    alert("Por favor, insira um nome para o novo item.");
+  }
 }

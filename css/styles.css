@@ -21,7 +21,7 @@ body {
   /* gap: 2rem;   */
   width: auto;
   background-color: #2e215a;
-  padding: 20px;  
+  padding: 20px;
 }
 
 .input-container {
@@ -35,11 +35,26 @@ body {
 input {
   flex: 1;
   padding: 0.8rem;
-  border: 2px solid #ccc;
   border-radius: 15px;
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
   transition: box-shadow 0.3s ease;
+}
+
+.input-hint {
+  border: 2px solid #ccc;
   background-color: #d9e1ff;
+}
+
+.input-item {
+  border: none;
+  /* background-color: #ffffff3d; */
+  background-color: #ff8ea8f3;
+  margin-right: 10px;
+}
+
+.input-item::placeholder {
+  color: #fff;
+  opacity: 1;
 }
 
 input:focus {

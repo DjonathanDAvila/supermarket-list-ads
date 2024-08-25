@@ -26,7 +26,7 @@
           </button>
         </div>
 
-        <ul class="category-list" id="category-list">                   
+        <ul class="category-list" id="category-list">
           <!-- <li>Alimentos</li> -->
         </ul>
       </aside>
@@ -39,13 +39,24 @@
 
         <section class="item-list">
           <div class="item-list-header">
-              <h2>Itens</h2>
+            <h2 id="name-list">Itens</h2>
+
+            <div class="input-container">
+              <input
+                type="text"
+                placeholder="Novo item"
+                class="input-item"
+                id="ipItemList"
+              />
+
+              <button class="add-item" id="btnNewItem">+</button>
+            </div>
           </div>
 
           <ul class="item-list" id="item-list">
             <!-- Itens serão renderizados aqui -->
           </ul>
-      </section>
+        </section>
       </main>
     </div>
     <script src="js/script.js"></script>
