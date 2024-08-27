@@ -32,6 +32,8 @@ const categories = [
 ];
 
 let selectedCategory = "";
+let clickStartTime;
+const longPressDuration = 1000;
 
 // Referência aos elementos DOM
 const categoryList = document.getElementById("category-list");
@@ -49,6 +51,16 @@ function renderCategories() {
   categories.forEach(function (category) {
     const li = document.createElement("li");
     li.textContent = category.name;
+    li.addEventListener("mousedown", (event) => {
+      clickStartTime = Date.now();
+    });
+
+    li.addEventListener("mouseup", (event) => {
+      const clickDuration = Date.now() - clickStartTime;
+      if (clickDuration >= longPressDuration) {
+        deleteCategory(category.name);
+      }
+    });
     categoryList.appendChild(li);
 
     if (tableBody) {
@@ -102,6 +114,22 @@ function addNewCategorie() {
     ipCategorie.value = "";
   } else {
     alert("Por favor, insira um nome para a nova categoria.");
+  }
+}
+
+function deleteCategory(categoryName) {
+  const categoryIndex = categories.findIndex(
+    (cat) => cat.name === categoryName
+  );
+  if (categoryIndex !== -1) {
+    categories.splice(categoryIndex, 1);
+    renderCategories(); // Atualiza a lista de categorias após a remoção
+
+    if (categories.length === 0) {
+      itemList.innerHTML = ""; 
+      nameList.textContent = "Itens"; 
+    }
+    alert(`Categoria ${categoryName} excluída!`);
   }
 }
 
