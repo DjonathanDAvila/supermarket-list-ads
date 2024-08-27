@@ -46,7 +46,7 @@ input {
 }
 
 .input-item {
-  border: none;
+  border: none;  
   /* background-color: #ffffff3d; */
   background-color: #ff8ea8f3;
   margin-right: 10px;
@@ -58,8 +58,12 @@ input {
 }
 
 input:focus {
-  outline: none;
+  outline: none;  
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.4);
+}
+
+.input-item:focus {
+  color: #fff;
 }
 
 .btn-add {
@@ -77,7 +81,7 @@ input:focus {
 }
 
 .btn-add:hover {
-  cursor: pointer;
+  cursor: pointer;  
   box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
     rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }

@@ -2,7 +2,8 @@ document.addEventListener("DOMContentLoaded", function () {
   renderCategories();
 
   btnNewCategorie.addEventListener("click", onClickNewCategorie);
-  btnNewItem.addEventListener('click', onClickNewItemList)
+  btnNewItem.addEventListener("click", onClickNewItemList);
+
   categoryList.addEventListener("click", onClickCategorie);
 });
 
@@ -45,7 +46,6 @@ const ipItemList = document.getElementById("ipItemList");
 function renderCategories() {
   categoryList.innerHTML = "";
   if (tableBody) tableBody.innerHTML = ""; // Limpa o conteúdo da tabela, se existir
-
   categories.forEach(function (category) {
     const li = document.createElement("li");
     li.textContent = category.name;
@@ -59,6 +59,12 @@ function renderCategories() {
       tableBody.appendChild(tr);
     }
   });
+
+  // Seleciona a primeira categoria e renderiza seus itens, se existir
+  if (categories.length > 0) {
+    selectedCategory = categories[0].name; // Define a primeira categoria como selecionada
+    renderItemsList(selectedCategory); // Renderiza os itens da primeira categoria
+  }
 }
 
 //Eventos de cliques...
@@ -68,6 +74,10 @@ function onClickNewCategorie() {
 
 function onClickNewItemList() {
   addNewItem(selectedCategory, ipItemList.value.trim());
+}
+
+function onClickDelete() {
+  deleteItemList();
 }
 
 function onClickCategorie() {
@@ -127,14 +137,15 @@ function renderItemsList(categoryName) {
     deleteButton.className = "delete";
     deleteButton.textContent = "🗑️";
     deleteButton.onclick = function () {
-      // Lógica para deletar o item
-      alert(`Item ${item} deletado!`);
-      // Remover o item da lista ou da categoria
+      deleteItemList(categoryName, item);
     };
 
     // Checkbox
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
+    checkbox.onclick = function () {
+      toggleItemStatus(categoryName, item, this.checked);
+    };
 
     // Monta a estrutura do <li>
     actionsDiv.appendChild(deleteButton);
@@ -152,15 +163,50 @@ function addNewItem(categoryName, itemName) {
   const category = categories.find((cat) => cat.name === categoryName);
 
   if (!category) {
-    alert(`Categoria ${categoryName} não encontrada.`);
+    alert(`Por favor, selecione uma categoria.`);
     return;
   }
 
-  const newItem = itemName.trim();
+  const newItem = capitalizeFirstLetter(itemName.trim());
   if (newItem) {
     category.items.push(newItem);
     renderItemsList(categoryName);
+    ipItemList.value = "";
   } else {
     alert("Por favor, insira um nome para o novo item.");
   }
+}
+
+function deleteItemList(categoryName, itemName) {
+  const category = categories.find((cat) => cat.name === categoryName);
+
+  const itemIndex = category.items.findIndex((item) => item === itemName);
+
+  if (itemIndex !== -1) {
+    category.items.splice(itemIndex, 1);
+    renderItemsList(categoryName); // Atualiza a lista de itens após a remoção
+    alert(`Item ${itemName} deletado!`);
+  }
+}
+
+function toggleItemStatus(categoryName, itemName, isChecked) {
+  const category = categories.find((cat) => cat.name === categoryName);
+  const itemIndex = category.items.findIndex((item) => item === itemName);
+
+  if (itemIndex !== -1) {
+    const itemElement = itemList.children[itemIndex];
+    const itemSpan = itemElement.querySelector("span");
+
+    if (isChecked) {
+      itemSpan.style.textDecoration = "line-through";
+      itemSpan.style.color = "#ccc";
+    } else {
+      itemSpan.style.textDecoration = "none";
+      itemSpan.style.color = "inherit";
+    }
+  }
+}
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }
