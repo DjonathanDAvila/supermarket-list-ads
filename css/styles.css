@@ -96,6 +96,8 @@ input:focus {
   margin-bottom: 10px;
   cursor: pointer;
   transition: background-color 0.3s;
+  display: flex;
+  justify-content: space-between;
 }
 
 .category-list li:hover {
@@ -103,6 +105,14 @@ input:focus {
   border-radius: 5px;
 }
 
+/* Estilos para o botão de deletar categoria */
+#category-list li button.delete {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: red;
+  font-size: 16px;
+}
 .content {
   flex: 1;
   padding: 20px;
